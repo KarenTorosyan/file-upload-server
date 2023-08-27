@@ -1,0 +1,38 @@
+version: '3.9'
+
+networks:
+  certbot-net:
+    name: certbot-net
+    driver: bridge
+
+services:
+  certbot:
+    image: certbot/certbot:v2.6.0
+    networks:
+      - certbot-net
+    ports:
+      - '443:443'
+      - '80:80'
+    volumes:
+      - type: bind
+        source: ./letsencrypt
+        target: /etc/letsencrypt
+    command: |-
+      certonly --standalone 
+        --agree-tos 
+        -m karen.torosyan@outlook.com 
+        -d fus1.duckdns.org
+        -d www.fus1.duckdns.org
+
+  certbot-renew:
+    image: certbot/certbot:v2.6.0
+    networks:
+      - certbot-net
+    ports:
+      - '443:443'
+      - '80:80'
+    volumes:
+      - type: bind
+        source: ./letsencrypt
+        target: /etc/letsencrypt
+    command: renew

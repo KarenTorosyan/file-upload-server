@@ -1,0 +1,19 @@
+server:
+  port: 8100
+cors:
+  allowed-origin-patterns: "*"
+  allowed-headers: "*"
+  allowed-methods: "*"
+  allow-credentials: false
+spring:
+  main:
+    banner-mode: off
+  web:
+    resources:
+      static-locations:
+        - classpath:static
+        - file:static
+  servlet:
+    multipart:
+      location: static/uploads
+      max-file-size: 2MB

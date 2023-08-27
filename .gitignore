@@ -1,0 +1,5 @@
+.gradle
+.idea
+build
+static/uploads
+letsencrypt

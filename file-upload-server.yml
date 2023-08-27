@@ -1,0 +1,33 @@
+version: "3.9"
+
+networks:
+  file-upload-server-net:
+    driver: overlay
+
+configs:
+  file-upload-server-config:
+    file: src/main/resources/application.yml
+
+services:
+  file-upload-server:
+    image: file-upload-server:1.0
+    networks:
+      - file-upload-server-net
+    configs:
+      - source: file-upload-server-config
+        target: /etc/file-upload-server/application.yml
+    env_file:
+      - application.env
+    ports:
+      - '450:8100'
+    volumes:
+      - type: bind
+        source: ./letsencrypt
+        target: /etc/letsencrypt
+        read_only: true
+    deploy:
+      replicas: 1
+      placement:
+        max_replicas_per_node: 1
+      restart_policy:
+        condition: any
