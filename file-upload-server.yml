@@ -4,6 +4,11 @@ networks:
   file-upload-server-net:
     driver: overlay
 
+volumes:
+  file-upload-server-volume:
+    name: file-upload-server-volume
+    external: true
+
 configs:
   file-upload-server-config:
     file: src/main/resources/application.yml
@@ -21,6 +26,7 @@ services:
     ports:
       - '450:8100'
     volumes:
+      - file-upload-server-volume:/var/file-upload-server/static
       - type: bind
         source: ./letsencrypt
         target: /etc/letsencrypt

@@ -18,6 +18,10 @@ sudo docker compose up certbot
 
 sudo docker build --file Dockerfile --tag file-upload-server:1.0 ./
 
+### Create Volumes
+
+sudo docker volume create file-upload-server-volume
+
 ### Run Server
 
 sudo docker stack deploy -c file-upload-server.yml file-upload-server
