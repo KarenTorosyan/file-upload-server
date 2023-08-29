@@ -1,6 +1,6 @@
 ## File Upload Server
 
-http://localhost:8100/upload
+    /upload
 
 * req form-data
     * file=url
@@ -11,6 +11,9 @@ http://localhost:8100/upload
 ### Generate Certificate
 
 mkdir ./letsencrypt
+
+> **Important**
+>  Override  domain
 
 sudo docker compose up certbot
 
@@ -24,9 +27,10 @@ sudo docker volume create file-upload-server-volume
 
 ### Run Server
 
-sudo docker stack deploy -c file-upload-server.yml file-upload-server
+> **Important**
+>  Override   certificate
 
-https://fus1.duckdns.org:450/upload
+sudo docker stack deploy -c file-upload-server.yml file-upload-server
 
 ### Renew Certificate
 
