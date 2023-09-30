@@ -1,6 +1,5 @@
 package server;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.servlet.MultipartProperties;
@@ -16,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = FileUploadController.class)
-@Import(MultipartProperties.class)
+@Import({MultipartProperties.class, WebSecurityConfig.class})
 public class FileUploadControllerTest {
 
     @Autowired
