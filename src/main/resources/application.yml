@@ -1,7 +1,7 @@
 server:
   port: 8100
 cors:
-  allowed-origin-patterns: "*"
+  allowed-origins: "*"
   allowed-headers: "*"
   allowed-methods: "*"
   allow-credentials: false
