@@ -4,6 +4,10 @@ networks:
   certbot-net:
     name: certbot-net
     driver: bridge
+  file-upload-server-net:
+
+volumes:
+  file-upload-server-volume:
 
 services:
   certbot:
@@ -36,3 +40,17 @@ services:
         source: ./letsencrypt
         target: /etc/letsencrypt
     command: renew
+
+  file-upload-server-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: file-upload-server:dev
+    networks:
+      - file-upload-server-net
+    env_file:
+      - application-dev.env
+    ports:
+      - '8100:8100'
+    volumes:
+      - file-upload-server-volume:/var/file-upload-server/static

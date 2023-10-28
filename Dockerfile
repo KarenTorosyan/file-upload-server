@@ -1,6 +1,10 @@
-FROM openjdk:17-jdk-alpine3.14
-WORKDIR /opt/image-upload-server
+FROM gradle:jdk21-graal-jammy as builder
+WORKDIR /opt/file-upload-server
+COPY --chown=gradle:gradle . .
+RUN gradle build --no-daemon -x test --info
+
+FROM sapmachine:21-jre-ubuntu-jammy
+WORKDIR /opt/file-upload-server
 VOLUME /var/file-upload-server/static
-COPY . .
-RUN ./gradlew build --no-daemon --info
-CMD java -jar build/libs/*.jar
+COPY --from=builder /opt/file-upload-server/build/libs/*.jar ./file-upload-server.jar
+CMD java -jar file-upload-server.jar

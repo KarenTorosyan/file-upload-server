@@ -7,3 +7,12 @@
  */
 
 rootProject.name = "file-upload-server"
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        create("libs") {
+            plugin("spring-boot", "org.springframework.boot").version("3.1.5")
+            plugin("spring-dependencyManagement", "io.spring.dependency-management").version("1.1.3")
+        }
+    }
+}

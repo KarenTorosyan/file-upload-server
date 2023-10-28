@@ -24,7 +24,7 @@ services:
     env_file:
       - application.env
     ports:
-      - '450:8100'
+      - '443:8100'
     volumes:
       - file-upload-server-volume:/var/file-upload-server/static
       - type: bind

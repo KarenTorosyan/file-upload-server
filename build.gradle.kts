@@ -1,13 +1,12 @@
 plugins {
-    id("application")
-    id("org.springframework.boot") version ("3.1.3")
+    java
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependencyManagement)
 }
 
 repositories {
     mavenCentral()
 }
-
-apply(plugin = "io.spring.dependency-management")
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
@@ -29,6 +28,6 @@ tasks.jar {
 }
 
 tasks.bootJar {
-    archiveBaseName = "image-upload-server"
+    archiveBaseName = "file-upload-server"
     archiveVersion = "1.0"
 }

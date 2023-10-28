@@ -1,41 +1,56 @@
-## File Upload Server
+# Docs
+
+http://localhost:8100 (dev)
+
+https://domain (prod)
 
     /upload
 
-* req form-data
-    * file=url
-* res json
+* request
+    * body form-data(file=blob)
+    * method POST
+    * headers
+        * Content-Type multipart/form-data
+* response
     * 200 url
     * 400 error.message
+
+## File Upload Server (dev)
+
+### Build and start server
+
+docker compose up file-upload-server-dev
+
+## File Upload Server (prod)
 
 ### Generate Certificate
 
 mkdir ./letsencrypt
 
 > **Important**
->  Override  domain
+> Override domain
 
-sudo docker compose up certbot
+docker compose up certbot
 
 ### Build Server
 
-sudo docker build --file Dockerfile --tag file-upload-server:1.0 ./
+docker build --file Dockerfile --tag file-upload-server:1.0 ./
 
 ### Create Volumes
 
-sudo docker volume create file-upload-server-volume
+docker volume create file-upload-server-volume
 
 ### Run Server
 
 > **Important**
->  Override   certificate
+> Override certificate
 
-sudo docker stack deploy -c file-upload-server.yml file-upload-server
+docker stack deploy -c file-upload-server.yml file-upload-server
 
 ### Renew Certificate
 
-sudo docker service scale {server_running_on_443_port}=0
+docker service scale {server_running_on_443_port}=0
 
-sudo docker compose up certbot-renew
+docker compose up certbot-renew
 
-sudo docker service scale {server_running_on_443_port}={expected_replica_count}
+docker service scale {server_running_on_443_port}={expected_replica_count}
